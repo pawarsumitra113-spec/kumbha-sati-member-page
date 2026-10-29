@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kumbha Sati | Member Details</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 14px;
+      font-family: Arial, sans-serif;
+      background: #f4f1fb;
+      color: #20233a;
+    }
+    .card {
+      max-width: 440px;
+      margin: 20px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 22px;
+      box-shadow: 0 8px 28px #25204418;
+    }
+    .header {
+      text-align: center;
+      background: #512da8;
+      color: white;
+      padding: 24px 12px;
+      border-radius: 17px;
+    }
+    .header .symbol { font-size: 42px; }
+    h1 { font-size: 23px; margin: 8px 0; }
+    .header p { margin: 5px 0; }
+    .row {
+      padding: 13px 0;
+      border-bottom: 1px solid #eeeaf5;
+      overflow-wrap: anywhere;
+    }
+    .label { color: #777; font-size: 13px; margin-bottom: 5px; }
+    .value { font-size: 17px; font-weight: bold; }
+    .demo {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff5e8;
+      border-radius: 14px;
+      border: 1px solid #ffe0b2;
+    }
+    .demo h2 { margin-top: 0; font-size: 18px; }
+    .note { font-size: 12px; color: #855b24; line-height: 1.5; }
+    .button {
+      display: block;
+      margin-top: 20px;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      background: #087f8c;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+    footer { text-align: center; color: #777; font-size: 12px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <header class="header">
+      <div class="symbol">👨‍👩‍👧‍👦</div>
+      <h1>KUMBHA SATI</h1>
+      <p>Family Member Identification</p>
+    </header>
+
+    <div class="row">
+      <div class="label">Member Name</div>
+      <div class="value" id="name">SUMITRA</div>
+    </div>
+    <div class="row">
+      <div class="label">Family ID</div>
+      <div class="value" id="familyId">KUMBHA-1234</div>
+    </div>
+    <div class="row">
+      <div class="label">Relation</div>
+      <div class="value" id="relation">Family Head</div>
+    </div>
+    <div class="row">
+      <div class="label">Age / Age Group</div>
+      <div class="value" id="age">Adult</div>
+    </div>
+
+    <section class="demo">
+      <h2>📍 Demo GPS Location</h2>
+      <div class="row">
+        <div class="label">Latitude</div>
+        <div class="value" id="lat">25.4358</div>
+      </div>
+      <div class="row">
+        <div class="label">Longitude</div>
+        <div class="value" id="lng">81.8463</div>
+      </div>
+      <p class="note">
+        DEMO ONLY: These are sample coordinates for Prayagraj,
+        not the member's actual live location.
+      </p>
+    </section>
+
+    <a class="button" id="mapButton"
+       href="https://www.google.com/maps?q=25.4358,81.8463"
+       target="_blank" rel="noopener">
+      Open Location in Google Maps
+    </a>
+
+    <footer>Kumbha Sati • Member Safety Demo</footer>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const fields = {
+      name: "name",
+      familyId: "familyId",
+      relation: "relation",
+      age: "age"
+    };
+
+    for (const [elementId, parameter] of Object.entries(fields)) {
+      const value = params.get(parameter);
+      if (value && value.trim()) {
+        document.getElementById(elementId).textContent = value;
+      }
+    }
+
+    const lat = Number(params.get("lat") || 25.4358);
+    const lng = Number(params.get("lng") || 81.8463);
+
+    if (Number.isFinite(lat) && Math.abs(lat) <= 90 &&
+        Number.isFinite(lng) && Math.abs(lng) <= 180) {
+      document.getElementById("lat").textContent = lat;
+      document.getElementById("lng").textContent = lng;
+      document.getElementById("mapButton").href =
+        `https://www.google.com/maps?q=${lat},${lng}`;
+    }
+  </script>
+</body>
+</html>
